@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>suivi_des_drones.Tools.Razor</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Language" Version="6.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\suivi-des-drones.Core.Application\suivi-des-drones.Core.Application.csproj" />
+    <ProjectReference Include="..\suivi-des-drones.Core.Interfaces\suivi-des-drones.Core.Interfaces.csproj" />
+    <ProjectReference Include="..\suivi-des-drones.Core.Models\suivi-des-drones.Core.Models.csproj" />
+    <ProjectReference Include="..\suivi-des-drones.Web.UI\suivi-des-drones.Web.UI.csproj" />
+  </ItemGroup>
+
+</Project>
