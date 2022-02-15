@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using suivi_des_drones.Core.Infrastructure.DataLayers;
 using suivi_des_drones.Core.Models;
 
 namespace suivi_des_drones.Web.UI.Pages
@@ -46,8 +47,12 @@ namespace suivi_des_drones.Web.UI.Pages
         #region Internal methods
         private void SetListOfDrones()
         {
-            this.Drones.Add(new() { Matricule = "54XXD0", CreationDate = DateTime.Now, HealthStatus = HealthStatus.Broken });
-            this.Drones.Add(new() { Matricule = "15FDR14", CreationDate = DateTime.Now.AddDays(-150) });
+            //this.Drones.Add(new() { Matricule = "54XXD0", CreationDate = DateTime.Now, HealthStatus = HealthStatus.Broken });
+            //this.Drones.Add(new() { Matricule = "15FDR14", CreationDate = DateTime.Now.AddDays(-150) });
+
+            var dataLayer = new SqlServerDroneDataLayer();
+
+            this.Drones = dataLayer.GetList();
         }
 
         private void SetListStatus()
