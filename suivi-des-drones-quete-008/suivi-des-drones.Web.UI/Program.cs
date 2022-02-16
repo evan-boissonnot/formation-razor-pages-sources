@@ -1,7 +1,22 @@
+using suivi_des_drones.Core.Infrastructure.Databases;
+using Microsoft.EntityFrameworkCore;
+using suivi_des_drones.Core.Interfaces.Infrastructures;
+using suivi_des_drones.Core.Infrastructure.DataLayers;
+using suivi_des_drones.Core.Interfaces.Repositories;
+using suivi_des_drones.Core.Application.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<DronesDbContext>(options =>
+{
+    options.UseSqlServer("localhost");
+});
+
+builder.Services.AddScoped<IDroneDataLayer, SqlServerDroneDataLayer>();
+builder.Services.AddScoped<IDroneRepository, DroneRepository>();
 
 var app = builder.Build();
 

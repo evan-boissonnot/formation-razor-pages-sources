@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using suivi_des_drones.Core.Infrastructure.Databases;
 using suivi_des_drones.Core.Infrastructure.DataLayers;
+using suivi_des_drones.Core.Interfaces.Infrastructures;
+using suivi_des_drones.Core.Interfaces.Repositories;
 using suivi_des_drones.Core.Models;
 
 namespace suivi_des_drones.Web.UI.Pages
@@ -9,12 +12,14 @@ namespace suivi_des_drones.Web.UI.Pages
     {
         #region Fields
         private readonly ILogger<IndexModel> _logger;
+        private readonly IDroneRepository repository;
         #endregion
 
         #region Constructors
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(ILogger<IndexModel> logger, IDroneRepository repository)
         {
             _logger = logger;
+            this.repository = repository;
         }
         #endregion
 
@@ -50,9 +55,9 @@ namespace suivi_des_drones.Web.UI.Pages
             //this.Drones.Add(new() { Matricule = "54XXD0", CreationDate = DateTime.Now, HealthStatus = HealthStatus.Broken });
             //this.Drones.Add(new() { Matricule = "15FDR14", CreationDate = DateTime.Now.AddDays(-150) });
 
-            var dataLayer = new SqlServerDroneDataLayer();
+            //var dataLayer = new SqlServerDroneDataLayer();
 
-            this.Drones = dataLayer.GetList();
+            this.Drones = this.repository.GetAll();
         }
 
         private void SetListStatus()

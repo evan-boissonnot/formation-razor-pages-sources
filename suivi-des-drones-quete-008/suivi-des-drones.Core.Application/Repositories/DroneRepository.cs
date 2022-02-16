@@ -1,4 +1,5 @@
-﻿using suivi_des_drones.Core.Interfaces.Repositories;
+﻿using suivi_des_drones.Core.Interfaces.Infrastructures;
+using suivi_des_drones.Core.Interfaces.Repositories;
 using suivi_des_drones.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,17 @@ namespace suivi_des_drones.Core.Application.Repositories
     /// </summary>
     public class DroneRepository : IDroneRepository
     {
+        #region Fields
+        private readonly IDroneDataLayer dataLayer;
+        #endregion
+
+        #region Constructors
+        public DroneRepository(IDroneDataLayer dataLayer)
+        {
+            this.dataLayer = dataLayer;
+        }
+        #endregion
+
         #region Public methods
         /// <summary>
         /// Retourne la liste complète des drones
@@ -20,11 +32,9 @@ namespace suivi_des_drones.Core.Application.Repositories
         /// <returns></returns>
         public List<Drone> GetAll()
         {
-            return new ()
-            {
-                new (),
-                new Drone()
-            };
+            List<Drone> list = this.dataLayer.GetList();
+
+            return list;
         }
         #endregion
     }

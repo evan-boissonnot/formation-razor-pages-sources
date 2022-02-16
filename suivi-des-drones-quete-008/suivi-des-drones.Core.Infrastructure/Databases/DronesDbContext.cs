@@ -10,6 +10,19 @@ namespace suivi_des_drones.Core.Infrastructure.Databases
 {
     public class DronesDbContext : DbContext
     {
+        public DronesDbContext(DbContextOptions options) : base(options)
+        {
+        }
+
+        public DronesDbContext()
+        {
+        }
+        #region Constructors
+
+        #endregion
+
+        #region Properties
         public DbSet<Drone> Drones { get; set; }
+        #endregion
     }
 }

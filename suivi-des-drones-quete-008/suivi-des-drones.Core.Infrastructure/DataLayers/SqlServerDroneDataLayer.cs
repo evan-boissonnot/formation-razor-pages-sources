@@ -11,18 +11,25 @@ namespace suivi_des_drones.Core.Infrastructure.DataLayers
 {
     public class SqlServerDroneDataLayer : IDroneDataLayer
     {
+        #region Fields
+        private readonly DronesDbContext? context = null;
+        #endregion
+
+        #region Constructors
+        public SqlServerDroneDataLayer(DronesDbContext context)
+        {
+            this.context = context;
+        }
+        #endregion
+
         #region Public methods
         public List<Drone> GetList()
         {
-            #region A ne pas reproduire pour de vrai (A MODIFIER DE TOUTE URGENCE)
-            using var context = new DronesDbContext();
-
-            var query = from item in context.Drones
+            var query = from item in this.context?.Drones
                         //where item.CreationDate > DateTime.Now
                         select item;
 
             return query.ToList();
-            #endregion
         }
         #endregion
     }
