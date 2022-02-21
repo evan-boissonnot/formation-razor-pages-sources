@@ -12,7 +12,8 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<DronesDbContext>(options =>
 {
-    options.UseSqlServer("localhost");
+    string connectionString = builder.Configuration.GetConnectionString("DroneContext");
+    options.UseSqlServer(connectionString);
 });
 
 builder.Services.AddScoped<IDroneDataLayer, SqlServerDroneDataLayer>();

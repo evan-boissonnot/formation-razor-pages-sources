@@ -16,9 +16,7 @@ namespace suivi_des_drones.Web.UI.Pages
         #endregion
 
         #region Constructors
-        public IndexModel(ILogger<IndexModel> logger,
-                          IConfiguration configuration,
-                          IDroneRepository repository)
+        public IndexModel(ILogger<IndexModel> logger, IDroneRepository repository)
         {
             _logger = logger;
             this.repository = repository;

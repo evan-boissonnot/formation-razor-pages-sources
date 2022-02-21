@@ -31,10 +31,9 @@ namespace suivi_des_drones.Core.Models
         public static HealthStatus Broken = new HealthStatus() { Id = -1, Label = "Cassé" };
         public static HealthStatus Repair = new HealthStatus() { Id = -2, Label = "En réparation" };
 
-        #region Properties
-        public decimal Id { get; init; }
+
+        public int Id { get; init; }
         public string Label { get; init; } = default!;
-        #endregion
     }
 
 
