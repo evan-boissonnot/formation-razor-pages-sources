@@ -20,7 +20,9 @@ namespace suivi_des_drones.Core.Models
 
         // public HealthStatus HealthStatus { get; set; } = HealthStatus.OK;
 
-        public HealthStatus HealthStatus { get; set; } =  HealthStatus.OK;
+        public HealthStatus? HealthStatus { get; set; } = null;
+
+        public decimal HealthStatusId { get; set; } = HealthStatus.OK.Id;
         #endregion
     }
 }

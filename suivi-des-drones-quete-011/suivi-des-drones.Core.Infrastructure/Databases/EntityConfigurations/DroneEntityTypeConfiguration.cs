@@ -16,6 +16,10 @@ namespace suivi_des_drones.Core.Infrastructure.Databases.EntityConfigurations
         {
             builder.HasKey(item => item.Matricule);
             builder.ToTable("Drone");
+
+            //builder.HasOne(item => item.HealthStatus)
+            //    .WithMany(item => item.Drones)
+            //    .HasForeignKey(item => item.HealthStatusId);
         }
         #endregion
     }
