@@ -4,6 +4,8 @@ using suivi_des_drones.Core.Interfaces.Infrastructures;
 using suivi_des_drones.Core.Infrastructure.DataLayers;
 using suivi_des_drones.Core.Interfaces.Repositories;
 using suivi_des_drones.Core.Application.Repositories;
+using suivi_des_drones.Core.Infrastructure.Web.Middlewares;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +23,17 @@ builder.Services.AddDbContext<DronesDbContext>(options =>
 });
 
 builder.Services.AddScoped<IDroneDataLayer, SqlServerDroneDataLayer>();
+builder.Services.AddScoped<IUserDataLayer, SqlServerUserDataLayer>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDroneRepository, DroneRepository>();
+
+//builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    //options.Cookie.HttpOnly = true;
+    //options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -38,7 +50,25 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseSession();
 app.UseAuthorization();
+
+app.UseRedirectIfNotConnected();
+
+//1° version middleware
+//app.Use(async (context, next) =>
+//{
+//    var id = context.Session.GetInt32("UserId");
+//    var isLoginPage = context.Request.Path.Value?.ToLower().Contains("login");
+
+//    if (!id.HasValue && (!isLoginPage.HasValue || !isLoginPage.Value))
+//    {
+//        context.Response.Redirect("/login");
+//        return;
+//    }
+
+//    await next.Invoke(context);
+//});
 
 app.MapRazorPages();
 

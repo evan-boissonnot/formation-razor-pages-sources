@@ -10,23 +10,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace suivi_des_drones.Core.Infrastructure.DataLayers
 {
-    public class SqlServerDroneDataLayer : IDroneDataLayer
+    public class SqlServerDroneDataLayer : BaseSqlServerDataLayer, IDroneDataLayer
     {
-        #region Fields
-        private readonly DronesDbContext? context = null;
-        #endregion
-
         #region Constructors
-        public SqlServerDroneDataLayer(DronesDbContext context)
-        {
-            this.context = context;
-        }
+        public SqlServerDroneDataLayer(DronesDbContext context) : base(context) {}
         #endregion
 
         #region Public methods
         public List<Drone> GetList()
         {
-            var query = from item in this.context?.Drones.Include(item => item.HealthStatus)
+            var query = from item in this.Context?.Drones.Include(item => item.HealthStatus)
                         //where item.CreationDate > DateTime.Now
                         select item;
 
@@ -35,12 +28,12 @@ namespace suivi_des_drones.Core.Infrastructure.DataLayers
 
         public void AddOne(Drone drone)
         {
-            this.context?.Add(drone);
+            this.Context?.Add(drone);
 
             //var entry = this.context?.Entry(drone.HealthStatus);
             //entry.State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
 
-            this.context?.SaveChanges();
+            this.Context?.SaveChanges();
         }
         #endregion
     }
