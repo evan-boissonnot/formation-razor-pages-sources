@@ -5,22 +5,29 @@ using suivi_des_drones.Core.Infrastructure.DataLayers;
 using suivi_des_drones.Core.Interfaces.Repositories;
 using suivi_des_drones.Core.Application.Repositories;
 using suivi_des_drones.Core.Infrastructure.Web.Middlewares;
-
+using Microsoft.AspNetCore.Identity;
+using suivi_des_drones.Web.UI.Data;
+using suivi_des_drones.Web.UI.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-                //.AddRazorPagesOptions(options =>
-                //{
-                //    options.Conventions.AddPageRoute("/CreateDrone", "creation-drone");
-                //});
+//.AddRazorPagesOptions(options =>
+//{
+//    options.Conventions.AddPageRoute("/CreateDrone", "creation-drone");
+//});
+string connectionString = builder.Configuration.GetConnectionString("DroneContext");
 
 builder.Services.AddDbContext<DronesDbContext>(options =>
-{
-    string connectionString = builder.Configuration.GetConnectionString("DroneContext");
+{    
     options.UseSqlServer(connectionString);
 });
+builder.Services.AddDefaultIdentity<AuthenticationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<AuthenticationContext>();
+
+builder.Services.AddDbContext<AuthenticationContext>(options =>
+    options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IDroneDataLayer, SqlServerDroneDataLayer>();
 builder.Services.AddScoped<IUserDataLayer, SqlServerUserDataLayer>();
@@ -49,13 +56,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseSession();
 app.UseAuthorization();
 
-app.UseRedirectIfNotConnected();
+// app.UseRedirectIfNotConnected();
 
-//1° version middleware
+//1ï¿½ version middleware
 //app.Use(async (context, next) =>
 //{
 //    var id = context.Session.GetInt32("UserId");
