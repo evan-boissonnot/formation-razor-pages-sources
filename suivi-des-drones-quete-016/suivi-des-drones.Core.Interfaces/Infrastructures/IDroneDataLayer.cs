@@ -19,6 +19,13 @@ namespace suivi_des_drones.Core.Interfaces.Infrastructures
         List<Drone> GetList();
 
         /// <summary>
+        /// Appel la base pour retourner un Drone
+        /// </summary>
+        /// <param name="matricule"></param>
+        /// <returns></returns>
+        Drone GetOne(string matricule);
+
+        /// <summary>
         /// Permet l'ajout d'un nouveau drone en base de données
         /// </summary>
         /// <param name="drone"></param>

@@ -72,7 +72,7 @@
         {
             <tr>
                 <td>
-                    @drone.Matricule
+                    <a asp-page="OneDrone" asp-route-matricule="@drone.Matricule">@drone.Matricule</a>
                 </td>
                 <td>
                     @drone.CreationDate.ToString("dddd dd MMMM yy HH:mm")

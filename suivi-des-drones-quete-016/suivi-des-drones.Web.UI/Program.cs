@@ -7,6 +7,7 @@ using suivi_des_drones.Core.Application.Repositories;
 using suivi_des_drones.Core.Infrastructure.Web.Middlewares;
 using Microsoft.AspNetCore.Identity;
 using suivi_des_drones.Core.Infrastructure;
+using suivi_des_drones.Core.Infrastructure.Web.Constraints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,11 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromSeconds(10);
     //options.Cookie.HttpOnly = true;
     //options.Cookie.IsEssential = true;
+});
+
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.ConstraintMap.Add("matconst", typeof(MatriculeRouteConstraint));
 });
 
 var app = builder.Build();
