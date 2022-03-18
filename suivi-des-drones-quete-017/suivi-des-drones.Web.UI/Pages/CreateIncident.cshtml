@@ -1,0 +1,20 @@
+﻿@page "/nouvel-incident"
+@model CreateIncidentModel
+
+
+@{
+
+}
+
+<vc:existingincidents></vc:existingincidents>
+
+<form method="post" enctype="multipart/form-data">
+    <input type="file" asp-for="PictureFile" />
+
+    <button>Déclarer</button>
+</form>
+
+
+@section scripts {
+    
+}
